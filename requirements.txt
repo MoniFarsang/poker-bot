@@ -1,0 +1,7 @@
+numpy
+git+git://github.com/datamllab/rlcard.git
+matplotlib
+pillow
+termcolor
+packaging
+tensorflow==1.14
