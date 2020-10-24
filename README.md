@@ -3,6 +3,16 @@
 ## Overview
 This repository contains the project for the Deep learning class (course code: VITMAV45) at the Budapest University of Technology and Economics. Our project focuses on reinforcement learning with the aim of training an agent in a poker environment.
 
+## Requirements
+### Dockerfile 
+The Dockerfile contains the list of system dependencies. After building the image, which gives a simple containerization of our application, and the code runs successfully in its container. </br >  </br >
+For building the image use following command:  </br >
+`$ docker build --tag IMAGE_NAME:TAG .`  </br >
+e.g. `$ docker build --tag poker-bot:1.0 .` </br >  </br >
+For running the image:  </br >
+`$ docker run IMAGE_NAME:TAG`  </br >
+e.g. `$ docker run poker-bot:1.0` </br >
+
 ## Environment
 RLcard is an easy-to-use toolkit (http://rlcard.org/overview.html) that provides Leduc Hold’em environment which is a smaller version of Limit Texas Hold’em.  This version of poker was introduced in the research paper *Bayes’ Bluff: Opponent Modeling in Poker* in 2012 (https://arxiv.org/abs/1207.1411). 
 - 6 cards: two pairs of King, Queen and Jack
