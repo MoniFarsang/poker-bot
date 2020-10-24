@@ -7,7 +7,7 @@ This repository contains the project for the Deep learning class (course code: V
 The presented code for the first milestone is based on the RLcard github repository [example code](https://github.com/datamllab/rlcard/blob/master/examples/leduc_holdem_cfr.py). It is used as a presentation that the chosen environment works and the agent is ready to train.
 
 ### Using Dockerfile 
-The Dockerfile contains the list of system dependencies. After building the image, which gives a simple containerization of our application, and the code runs successfully in its container. </br >  </br >
+The Dockerfile contains the list of system dependencies. After building the image, which gives a simple containerization of our application, the training runs successfully in its container. </br >  </br >
 For building the image use following command:  </br >
 `$ docker build --tag IMAGE_NAME:TAG .`  </br >
 e.g. `$ docker build --tag poker-bot:1.0 .` </br >  </br >
