@@ -5,3 +5,4 @@ pillow
 termcolor
 packaging
 tensorflow==1.14
+torch

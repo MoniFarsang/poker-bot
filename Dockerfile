@@ -16,8 +16,9 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy all the files from the project’s root to the working directory
-COPY training_agent/ /src/
+COPY training_dqn.py /src/
+COPY /agent/* /src/
 RUN ls -la /src/*
 
 # Running Python Application
-CMD ["python3", "/src/train.py"]
+CMD ["python3", "/src/training_dqn.py"]
