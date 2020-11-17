@@ -3,8 +3,13 @@
 ## Overview
 This repository contains the project for the Deep learning class (course code: VITMAV45) at the Budapest University of Technology and Economics. Our project focuses on reinforcement learning with the aim of training an agent in a poker environment.
 
-## Running code
-The presented code for the first milestone is based on the RLcard github repository [example code](https://github.com/datamllab/rlcard/blob/master/examples/leduc_holdem_cfr.py). It is used as a presentation that the chosen environment works and the agent is ready to train.
+## Code
+The [presented code for the first milestone](https://github.com/MoniFarsang/poker-bot/blob/main/training_agent/train.py) is based on the RLcard github repository [example code](https://github.com/datamllab/rlcard/blob/master/examples/leduc_holdem_cfr.py). It is used as a presentation that the chosen environment works and the agent is ready to train.</br >
+</br >
+The [code for the second milestone](https://github.com/MoniFarsang/poker-bot/tree/main/agent) is a DQN agent in Pytorch. We used the RLcard [DQN agent](https://github.com/datamllab/rlcard/blob/master/rlcard/agents/dqn_agent.py) written in TensorFlow as a base and created a more powerful, more manageable, and easy to use code in Pytorch. Furthermore, this implementation is an advanced Q-learning agent in two aspects. First, it uses a replay buffer to store past experiences and we can sample training data from it periodically.  Second, to make the training more stable, another Q-network is used as a target network in order to backpropagate through it and train the policy Q-network. These features are described in the Nature paper [*Human-level control through deep reinforcement learning*](https://www.nature.com/articles/nature14236).</br >
+### References:</br >
+https://pytorch.org/tutorials/intermediate/reinforcement_q_learning.html </br >
+https://towardsdatascience.com/deep-q-network-dqn-ii-b6bf911b6b2c
 
 ### Using Dockerfile 
 The Dockerfile contains the list of system dependencies. After building the image, which gives a simple containerization of our application, the training runs successfully in its container. </br >  </br >
