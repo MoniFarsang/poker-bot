@@ -14,6 +14,7 @@ class DQN_agent(object):
     def __init__(self,
                 state_no,
                 act_no,
+                extra_action_version=0,
                 replay_memory_capacity=20000,
                 replay_memory_min_sample=1000,
                 batch_size=32,
@@ -30,6 +31,7 @@ class DQN_agent(object):
 
         :param int state_no: Number of states
         :param int act_no: Number of actions
+        :param int extra_action_version: Mode of choosing action during evaluation phase. Action with maximum value: 0, Raise action instead of Call if possible: 1, Raise action instead of Check if possible: 2, Raise action instead of Fold if possible: 3
         :param int replay_memory_capacity: Replay memory size
         :param int replay_memory_min_sample: Minimum number of samples in the replay memory during sampling
         :param int batch_size: Size of batches to sample from the replay memory
@@ -49,6 +51,7 @@ class DQN_agent(object):
         self.batch_size = batch_size
         self.act_no = act_no
         self.training_period = training_period
+        self.extra_action_version = extra_action_version
 
         # Torch device on which a torch.Tensor will be allocated
         if device is None:
@@ -80,8 +83,6 @@ class DQN_agent(object):
         
         '''
         (state, action, reward, next_state, done) = tuple(transition)
-
- ######       ##### replay memory pop 
 
         # Store transition in replay memory
         self.memory.push(state['obs'], action, reward, next_state['obs'], done)
@@ -147,7 +148,27 @@ class DQN_agent(object):
         '''
         q_values = self.policy_dqn.get_qvalue(np.expand_dims(state['obs'], 0))[0]
         norm_valid_action_probs = self.discard_invalid_actions(np.exp(q_values), state['legal_actions'])
-        best_action = np.argmax(norm_valid_action_probs)
+        # Check version of choosing action
+        if self.extra_action_version == 1:
+          # If Raise (1) is a valid action and the best action is Call (0)
+          if 1 in state['legal_actions'] and np.argmax(norm_valid_action_probs)==0:
+            best_action = 1
+          else:
+            best_action = np.argmax(norm_valid_action_probs)
+        elif self.extra_action_version == 2:
+          # If Raise (1) is a valid action and the best action is Check (3)
+          if 1 in state['legal_actions'] and np.argmax(norm_valid_action_probs)==3:
+            best_action = 1
+          else:
+            best_action = np.argmax(norm_valid_action_probs)
+        elif self.extra_action_version == 3:
+          # If Raise (1) is a valid action and the best action is Fold (2)
+          if 1 in state['legal_actions'] and np.argmax(norm_valid_action_probs)==2:
+            best_action = 1
+          else:
+            best_action = np.argmax(norm_valid_action_probs)
+        else:
+          best_action = np.argmax(norm_valid_action_probs)
         return best_action, norm_valid_action_probs
 
     
@@ -195,4 +216,3 @@ class DQN_agent(object):
         '''
         self.policy_dqn.DQN_network.load_state_dict(checkpoint['policy_network'])
         self.target_dqn.DQN_network.load_state_dict(checkpoint['target_network'])
-
