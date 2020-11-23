@@ -42,7 +42,7 @@ e.g. `$ docker run poker-bot:1.0` </br >
 #### First milestone
 A notebook version is presented in the repository as well. If you want to get a quick look at our first milestone results, we recommend to choose [this one](https://github.com/MoniFarsang/poker-bot/blob/main/poker_bot_notebook.ipynb). 
 #### Second milestone
-For the second milestone, we present two versions, one in the [Leduc Hold'em](https://github.com/MoniFarsang/poker-bot/blob/main/poker-bot-dqn-leduc-notebook.ipynb) and the other in the [Limit Hold'em](https://github.com/MoniFarsang/poker-bot/blob/main/poker-bot-dqn-limit-notebook.ipynb) environment. 
+For the second milestone, we present two versions, one in the [Leduc Hold'em](https://github.com/MoniFarsang/poker-bot/blob/main/poker-bot-dqn-leduc-notebook.ipynb) and the other in the [Limit Hold'em](https://github.com/MoniFarsang/poker-bot/blob/main/poker-bot-dqn-limit-notebook.ipynb) environment. In the Leduc Hold'em environment we can play agent the pre-trained agent.
 
 ## Environment
 [RLcard](http://rlcard.org/overview.html) is an easy-to-use toolkit that provides [Leduc Hold’em environment](http://rlcard.org/games.html#leduc-hold-em) which is a smaller version of Limit Texas Hold’em.  This version of poker was introduced in the research paper [Bayes’ Bluff: Opponent Modeling in Poker](https://arxiv.org/abs/1207.1411) in 2012. 
