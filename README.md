@@ -1,11 +1,13 @@
 # poker-bot
 
 ## Overview
-This repository contains the project for the Deep learning class (course code: VITMAV45) at the Budapest University of Technology and Economics. Our project focuses on reinforcement learning with the aim of training an agent in a poker environment.
+This repository contains the project for the Deep learning class (course code: VITMAV45) at the Budapest University of Technology and Economics. Our project focuses on reinforcement learning with the aim of training an agent in a poker environment. After training, we can play against our pre-trained agent.
 
 ## Code
+### First milestone
 The [presented code for the first milestone](https://github.com/MoniFarsang/poker-bot/blob/main/training_agent/train.py) is based on the RLcard github repository [example code](https://github.com/datamllab/rlcard/blob/master/examples/leduc_holdem_cfr.py). It is used as a presentation that the chosen environment works and the agent is ready to train.</br >
 </br >
+### Second milestone
 The [code for the second milestone](https://github.com/MoniFarsang/poker-bot/tree/main/agent) is a DQN agent in PyTorch. We used the RLcard [DQN agent](https://github.com/datamllab/rlcard/blob/master/rlcard/agents/dqn_agent.py) written in TensorFlow as a base and created a more powerful, more manageable, and easy to use code in Pytorch. This implementation is an advanced Q-learning agent in two aspects. First, it uses a replay buffer to store past experiences and we can sample training data from it periodically.  Second, to make the training more stable, another Q-network is used as a target network in order to backpropagate through it and train the policy Q-network. These features are described in the Nature paper [*Human-level control through deep reinforcement learning*](https://www.nature.com/articles/nature14236).</br >
 Furthermore, as an extra component, we added the opportunity of a more aggressive playing strategy. In case of the given action has the maximum q-value, the agent chooses the Raise action instead if it is a valid action. The possible settings are displayed below: </br>
 | Strategy settings |      Meaning      |  
@@ -23,11 +25,15 @@ The agent can be trained and evaluated against a [random agent](https://github.c
 
 These can be set in the [training code](https://github.com/MoniFarsang/poker-bot/blob/main/training_dqn.py) for the DQN agent. </br >
 
-### References:</br >
+#### References:</br >
 These references were used during the implementation of the DQN agent in PyTorch. </br >
 https://github.com/datamllab/rlcard/blob/master/rlcard/agents/dqn_agent.py </br >
 https://pytorch.org/tutorials/intermediate/reinforcement_q_learning.html </br >
 https://towardsdatascience.com/deep-q-network-dqn-ii-b6bf911b6b2c
+
+### Final code
+In the final code, we saved the best agents after hyperparameter optimization. These pre-trained agents can be set as opponents in the Leduc and Limit Hold'em environment. The [playing game code](https://github.com/MoniFarsang/poker-bot/blob/main/game.py) runs in the Leduc Hold'em environment by default.
+
 
 ### Using Dockerfile 
 The Dockerfile contains the list of system dependencies. After building the image, which gives a simple containerization of our application, the training runs successfully in its container. </br >  </br >
