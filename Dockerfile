@@ -23,4 +23,5 @@ RUN ls -la /
 
 # Running Python Application
 #CMD ["python3", "game.py","-env","leduc"]
-CMD ["python3", "game.py","-env","limit"]
+#CMD ["python3", "game.py","-env","limit"]
+ENTRYPOINT ["python", "game.py"]
