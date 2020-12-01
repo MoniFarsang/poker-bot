@@ -43,7 +43,6 @@ agent = DQN_agent(state_no=env.state_shape,
                   learning_rate=0.1,
                   discount_factor=0.99,
                   hidden_layers=[128, 128, 128],
-                  device=torch.device('cpu'),
                   extra_action_version=extra_action_version)
 
 # Create opponent agent for training

@@ -9,7 +9,6 @@ sys.path.insert(0, './agent')
 from DQN import DQN_agent
 from Leduc_Human_agent import HumanAgent as HumanAgentLeduc
 from Limit_Human_agent import HumanAgent as HumanAgentLimit
-import own_models
 import argparse
 
 def game(env='leduc'):
@@ -74,7 +73,7 @@ def game(env='leduc'):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--env", help="Environment, leduc or limit. Default is leduc.", type=str)
+    parser.add_argument("--env", "-env", help="Environment, leduc or limit. Default is leduc.", type=str)
     args = parser.parse_args()
     try:
         game(args.env)
