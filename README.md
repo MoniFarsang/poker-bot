@@ -35,8 +35,16 @@ For building the image use following command:  </br >
 `$ docker build --tag IMAGE_NAME:TAG .`  </br >
 e.g. `$ docker build --tag poker-bot:1.0 .` </br >  </br >
 For running the image:  </br >
-`$ docker run IMAGE_NAME:TAG`  </br >
-e.g. `$ docker run poker-bot:1.0` </br >
+#### In the Leduc Hold'em environment:
+`$ docker run -ti IMAGE_NAME:TAG`
+or
+`$ docker run -ti IMAGE_NAME:TAG --env leduc`  </br >
+e.g. `$ docker run -ti poker-bot:1.0`
+or 
+`$ docker run -ti poker-bot:1.0 --env leduc`
+#### In the Limit Hold'em environment:
+`$ docker run -ti IMAGE_NAME:TAG --env limit`  </br >
+e.g. `$ docker run -ti poker-bot:1.0 --env limit` </br >
 
 ### Using Notebook format
 #### First milestone
@@ -45,8 +53,31 @@ A notebook version is presented in the repository as well. If you want to get a 
 For the second milestone, we present two versions, one in the [Leduc Hold'em](https://github.com/MoniFarsang/poker-bot/blob/main/poker-bot-dqn-leduc-notebook.ipynb) and the other in the [Limit Hold'em](https://github.com/MoniFarsang/poker-bot/blob/main/poker-bot-dqn-limit-notebook.ipynb) environment. In the Leduc Hold'em environment we can play agent the pre-trained agent.
 
 ## Environment
-[RLcard](http://rlcard.org/overview.html) is an easy-to-use toolkit that provides [Leduc Hold’em environment](http://rlcard.org/games.html#leduc-hold-em) which is a smaller version of Limit Texas Hold’em.  This version of poker was introduced in the research paper [Bayes’ Bluff: Opponent Modeling in Poker](https://arxiv.org/abs/1207.1411) in 2012. 
-### Limited environment
+[RLcard](http://rlcard.org/overview.html) is an easy-to-use toolkit that provides [Limit Hold’em environment](http://rlcard.org/games.html#limit-texas-hold-em) and [Leduc Hold’em environment](http://rlcard.org/games.html#leduc-hold-em). The latter is a smaller version of Limit Texas Hold’em and it was introduced in the research paper [Bayes’ Bluff: Opponent Modeling in Poker](https://arxiv.org/abs/1207.1411) in 2012. 
+
+### Limit Hold'em
+- 52 cards
+- each player has 2 hole cards (face-down cards)
+- 5 community cards (3 phases: flop, turn, river)
+- 4 betting rounds
+- each player has 4 raise actions in each round
+
+#### State Representation in Limit Hold'em
+The state is encoded as a vector of length 72. It can be splitted into two parts, the first part is the known cards (hole cards plus the known community cards). The second part is the number of Raise actions in the rounds. The indices and their meaning are presented below.
+
+| Index |      Meaning      |  
+|----------|:-------------:|
+| 0-12 |  Spade A - Spade K | 
+| 13-25 |    Heart A - Heart K  |  
+| 26-38 | Diamond A - Diamond K |
+| 39-51 |  Club A - Club K | 
+| 52-56 |    Raise number in round 1   |  
+| 57-61 | Raise number in round 2 |
+| 62-66 |  Raise number in round 3 | 
+| 67-71 |    Raise number in round 4  |  
+
+
+### Leduc Hold'em
 - 6 cards: two pairs of King, Queen and Jack
 - 2 players
 - 2 rounds
@@ -58,8 +89,8 @@ First round: players put 1 unit in the pot and are dealt 1 card, then start bett
 Second round: 1 public card is revealed, then the players bet again. <br />
 End: the player wins, whose hand has the same rank as the public card or has higher rank than the opponent. 
 
-### State Representation
-The state is encoded as a vector of length 36, the indices and their meaning is presented below.
+#### State Representation in Leduc Hold'em
+The state representation is different from the Limit Hold'em environment, its length is 36. The indices and their meaning are presented below.
 
 | Index |      Meaning      |  
 |----------|:-------------:|
@@ -73,7 +104,7 @@ The state is encoded as a vector of length 36, the indices and their meaning is 
 | 21-35 |    0-14 chips for the opponent  |  
 
 ### Actions
-There are 4 action types which are encoded as below.
+Actions are the same in the Limit and the Leduc Hold'em environment. There are 4 action types which are encoded as below.
 | Action |      Meaning      |  
 |----------|:-------------:|
 | 0 |  Call | 
@@ -82,8 +113,10 @@ There are 4 action types which are encoded as below.
 | 3 |  Check | 
 
 ### Payoff
-The reward is based on big blinds per hand.
+Payoff is the same in the Limit and the Leduc Hold'em environment. The reward is based on big blinds per hand.
 | Reward |      Meaning      |  
 |----------|:-------------:|
 | R |  the player wins R times of the amount of big blind | 
-| -R | the player loses R times of the amount of big blind |  
+| -R | the player loses R times of the amount of big blind | 
+
+ 
