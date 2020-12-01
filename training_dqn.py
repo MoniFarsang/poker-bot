@@ -29,7 +29,7 @@ extra_action_version=1
 # Opponent agent
 # Random agent: 0
 # Pretrained agent with nfsp: 1
-opponent_agent_version_train=1
+opponent_agent_version_train=0
 opponent_agent_version_eval=0
 
 # The paths for saving the logs and learning curves
@@ -38,9 +38,11 @@ log_dir = './experiments/leduc_holdem_dqn_result/'
 # Create DQN agent
 agent = DQN_agent(state_no=env.state_shape,
                   act_no=env.action_num, 
-                  replay_memory_min_sample=1000,
-                  training_period=10,
-                  hidden_layers=[128, 128],
+                  replay_memory_capacity=2000,
+                  batch_size=64,
+                  learning_rate=0.1,
+                  discount_factor=0.99,
+                  hidden_layers=[128, 128, 128],
                   device=torch.device('cpu'),
                   extra_action_version=extra_action_version)
 
@@ -86,11 +88,11 @@ for episode in range(episode_no):
 logger.close_files()
 
 # Save model
-save_dir = 'models/dqn'
+save_dir = 'own_models/leduc_dqn'
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 state_dict = agent.get_state_dict()
-torch.save(state_dict, os.path.join(save_dir, 'model.pth'))
+torch.save(state_dict, os.path.join(save_dir, 'model'))
 
 csv_path = os.path.join(log_dir, 'performance.csv')
 save_path = log_dir
@@ -119,7 +121,7 @@ def plot(algorithm):
 
         #ax.plot(xs[:-(N-1)], moving_aves, label=algorithm)
         ax.set(xlabel='timestep', ylabel='reward', title=algorithm)
-        ax.legend()
+        ax.legend('DQN')
         ax.grid()
 
         save_dir = os.path.dirname(save_path)
