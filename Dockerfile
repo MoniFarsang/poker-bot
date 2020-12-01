@@ -15,10 +15,12 @@ WORKDIR  /usr/src/poker-bot
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy all the files from the project’s root to the working directory
-COPY training_dqn.py /src/
-COPY /agent/* /src/
-RUN ls -la /src/*
+# Copy all the files to the working directory
+COPY game.py .
+COPY /agent/* .
+COPY /own_models/ ./own_models
+RUN ls -la /
 
 # Running Python Application
-CMD ["python3", "/src/training_dqn.py"]
+#CMD ["python3", "game.py","-env","leduc"]
+CMD ["python3", "game.py","-env","limit"]
