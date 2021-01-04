@@ -1,5 +1,7 @@
 # poker-bot
 
+[Preview on youtube]()
+
 ## Overview
 This repository contains the project for the Deep learning class (course code: VITMAV45) at the Budapest University of Technology and Economics. Our project focuses on reinforcement learning with the aim of training an agent in a poker environment. After training, we can play against our pre-trained agent.</br >
 </br >
